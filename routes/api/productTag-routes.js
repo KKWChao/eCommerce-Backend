@@ -1,3 +1,5 @@
+/* NOT NEEDED */
+
 const router = require('express').Router();
 const { ProductTag, Tag, Product } = require('../../models')
 
@@ -16,10 +18,14 @@ router.get("/:id", (req, res) => {
 router.post()
 
 // PUT
-router.put()
+router.put("/:id", (req, res) => {
+  
+})
 
 // DELETE
-router.delete()
+router.delete("/:id", (req, res) => {
+  
+})
 
 
 module.exports = router;
