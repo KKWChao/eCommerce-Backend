@@ -1,9 +1,11 @@
-const Catagory = require('./Catagory')
+const Category = require('./Category')
 const Product = require('./Product')
 const Tag = require('./Tag')
 const ProductTag = require('./ProductTag')
 
 // Category Model
+Categor
+
 
 // Product Model
 
@@ -12,4 +14,4 @@ const ProductTag = require('./ProductTag')
 // ProductTag Model
 
 
-module.exports = { Catagory, Product, Tag, ProductTag }
+module.exports = { Category, Product, Tag, ProductTag }
