@@ -1,6 +1,6 @@
 /* NOT NEEDED */
 
-const router = require('express').Router();
+/* const router = require('express').Router();
 const { ProductTag, Tag, Product } = require('../../models')
 
 // GET
@@ -28,4 +28,4 @@ router.delete("/:id", (req, res) => {
 })
 
 
-module.exports = router;
+module.exports = router; */

@@ -5,15 +5,16 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 //    ALL
 router.get("/", (req, res) => {
   Product.findAll({
+    attributes: ['id', 'product_name', 'price', 'stock'],
     include: [
       {
         model: Category,
-        attributes: ["category_name"],
+        attributes: ["category_name"]
       },
       {
         model: Tag,
-        attributes: ["tag_name"],
-      },
+        attributes: ['tag_name']
+      }
     ],
   })
     .then((dbProductData) => {
@@ -26,39 +27,39 @@ router.get("/", (req, res) => {
 });
 
 //    SINGLE
-router.get("/:id", (req, res) => {
-  Product.findOne({
-    where: {
-      id: req.params.id,
-    },
-    include: [
-      {
-        model: Category,
-        attributes: ["category_name"],
-      },
-      {
-        model: Tag,
-        attributes: ["tag_name"],
-      },
-    ],
-  })
-    .then((dbProductData) => {
-      if (!dbProductData) {
-        res.status(404).json({
-          message: "No product with this id",
-        });
-        return;
-      }
-      res.json(dbProductData);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+// router.get("/:id", (req, res) => {
+//   Product.findOne({
+//     where: {
+//       id: req.params.id,
+//     },
+//     include: [
+//       {
+//         model: Category,
+//         attributes: ["category_name"],
+//       },
+//       {
+//         model: Tag,
+//         attributes: ["tag_name"],
+//       },
+//     ],
+//   })
+//     .then((dbProductData) => {
+//       if (!dbProductData) {
+//         res.status(404).json({
+//           message: "No product with this id",
+//         });
+//         return;
+//       }
+//       res.json(dbProductData);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
+// });
 
 // POST
-router.post();
+// router.post();
 
 // PUT
 router.put("/:id", (req, res) => {

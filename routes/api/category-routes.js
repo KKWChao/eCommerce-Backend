@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Category, Product } = require("../../models");
+const { Category, Product, Tag, ProductTag } = require("../../models");
 
 // GET
 //    ALL
@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     include: [
       {
         model: Product,
-        attributes: ['id', 'product_name', 'price', 'stock']
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
       }
     ]
   })
@@ -21,20 +21,19 @@ router.get("/", (req, res) => {
     });
 });
 
-//    SINGLE
+//   SINGLE
 router.get("/:id", (req, res) => {
   Category.findOne({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
     include: [
       {
         model: Product,
-        attributes: ["id", "product_name", "price", "stock"],
-      },
+        attributes: ["id", "product_name", "price", "stock", "category_id"],
+      }
     ],
-  }) //,
-    // include
+  })
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
         res.status(404).json({
@@ -65,7 +64,31 @@ router.post("/", (req, res) => {
 });
 
 // PUT
-router.put("/");
+router.put("/:id", (req, res) => {
+  Category.update(
+    {
+      category_name: req.body.category_name
+    },
+    {
+      where: {
+        id: req.params.id
+      }
+    }
+  )
+    .then(dbCategoryData => {
+      if (!dbCategoryData) {
+        res.status(404).json({
+          message: 'No catagorie with this id'
+        })
+        return
+      }
+      res.json(dbCategoryData)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json(err)
+    })
+});
 
 // DELETE
 router.delete("/:id", (req, res) => {

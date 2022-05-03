@@ -5,12 +5,13 @@ const { Tag, Product, ProductTag } = require("../../models");
 //    ALL
 router.get("/", (req, res) => {
   Tag.findAll({
-    attributes: [
-      'id',
-      'tag_name',
-      [sequelize.literal('(SELECT COUNT(*) FROM product WHERE tag.id = product.tag_id'), 'product_count']
-    ],
-  })
+    include: {
+      model: Product,
+      attributes: ['product_name', 'price', 'stock', 'category_id']
+    }
+  }
+    
+    )
     .then((dbTagData) => {
       res.json(dbTagData)
     })
@@ -21,23 +22,23 @@ router.get("/", (req, res) => {
 });
 
 //    SINGLE
-router.get("/:id", (req, res) => {
-  Tag.findOne({
-    where: {
-      id: req.body.id
-    }
-  })
-    .then()
-    .catch() 
-});
+// router.get("/:id", (req, res) => {
+//   Tag.findOne({
+//     where: {
+//       id: req.params.id
+//     }
+//   })
+//     .then()
+//     .catch() 
+// });
 
 // POST
-router.post("/", (req, res) => {
+// router.post("/", (req, res) => {
 
-});
+// });
 
 // PUT
-router.put("/:id", (req, res) => {});
+// router.put("/:id", (req, res) => {});
 
 // DELETE
 router.delete("/:id", (req, res) => {
