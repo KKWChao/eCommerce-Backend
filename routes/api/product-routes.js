@@ -66,6 +66,7 @@ router.post("/", (req, res) => {
     price: req.body.price,
     stock: req.body.stock,
     category_id: req.body.category_id,
+    tagId: req.body.tagIds,
   })
     .then((dbProductData) => res.json(dbProductData))
     .catch((err) => {
